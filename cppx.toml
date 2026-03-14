@@ -1,0 +1,11 @@
+[project]
+name = "hello"
+version = "0.1.0"
+cpp_standard = "20"
+
+[build]
+type = "executable"
+
+[tools]
+formatter = "clang-format"
+linter = "clang-tidy"
