@@ -35,8 +35,7 @@
 
         - name: Package .deb
           run: |
-            PKG_DIR="cppx_${{
-  steps.version.outputs.version }}_amd64"
+            PKG_DIR="cppx_${{ steps.version.outputs.version }}_amd64"
             mkdir -p "$PKG_DIR/DEBIAN"
             mkdir -p "$PKG_DIR/usr/local/bin"
 
