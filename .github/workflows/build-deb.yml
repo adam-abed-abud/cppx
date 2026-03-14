@@ -17,25 +17,21 @@
         - name: Install dependencies
           run: |
             sudo apt-get update
-            sudo apt-get install -y cmake ninja-build
-  g++
+            sudo apt-get install -y cmake ninja-build g++
 
         - name: Configure and build
           run: |
-            cmake -S . -B build -G Ninja
-  -DCMAKE_BUILD_TYPE=Release
+            cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
             cmake --build build
 
         - name: Get version from tag
           id: version
           run: |
             VERSION="${GITHUB_REF_NAME#v}"
-            if [ -z "$VERSION" ] || [ "$VERSION" =
-  "$GITHUB_REF_NAME" ]; then
+            if [ -z "$VERSION" ] || [ "$VERSION" = "$GITHUB_REF_NAME" ]; then
               VERSION="0.1.0"
             fi
-            echo "version=$VERSION" >>
-  "$GITHUB_OUTPUT"
+            echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
         - name: Package .deb
           run: |
@@ -49,17 +45,14 @@
 
             cat > "$PKG_DIR/DEBIAN/control" << EOF
             Package: cppx
-            Version: ${{ steps.version.outputs.version
-   }}
+            Version: ${{ steps.version.outputs.version }}
             Section: devel
             Priority: optional
             Architecture: amd64
             Depends: cmake (>= 3.20), g++ (>= 12)
             Maintainer: Your Name <you@example.com>
-            Description: A Cargo-inspired CLI tool for
-   C++ project management
-             cppx helps developers quickly bootstrap
-  and manage modern C++ projects.
+            Description: A Cargo-inspired CLI tool for C++ project management4
+             cppx helps developers quickly bootstrap and manage modern C++ projects.
             EOF
 
             dpkg-deb --build "$PKG_DIR"
